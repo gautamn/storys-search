@@ -45,8 +45,8 @@ def fetch_lightx_storys():
 			"status": "complete",
 			"language": "en"
 		}	
-		story_pages=db["storyPage"] ##TODO
-		story_pages=db["storys"]
+		story_pages=db["storyPage"]
+		#story_pages=db["storys"]
 		result = story_pages.find(query)
 		return result
 	except Exception as e:
