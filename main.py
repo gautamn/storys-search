@@ -80,6 +80,7 @@ def parse_storys(result) -> list:
 		solr_doc['type_s']=doc['type']
 		solr_doc['pageType_s']=doc['pageType']
 		solr_doc['subType_s']=doc['subType']
+		solr_doc['customSubType_s']=doc['subType'].replace('-', ' ')
 
 		tool_tag_assoc_ids = []
 		if 'toolTags' in doc:
