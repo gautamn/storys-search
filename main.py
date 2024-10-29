@@ -56,6 +56,7 @@ def fetch_lightx_storys():
         # story_pages = db[collection]
         story_pages = db["storys"]
         result = story_pages.find(query)
+        print(f"Total number of storys fetched for indexing={len(result)}")
         return result
     except Exception as e:
         print(e)
