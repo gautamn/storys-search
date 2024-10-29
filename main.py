@@ -53,8 +53,8 @@ def fetch_lightx_storys():
             "language": "en",
         }
         collection = os.getenv("MONGODB_COLLECTION")
-        story_pages = db[collection]
-        # story_pages = db["storys"]
+        # story_pages = db[collection]
+        story_pages = db["storys"]
         result = story_pages.find(query)
         print(f"Total number of storys fetched for indexing={len(result)}")
         return result
