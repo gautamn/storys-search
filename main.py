@@ -55,7 +55,6 @@ def fetch_lightx_storys():
         collection = os.getenv("MONGODB_COLLECTION")
         story_pages = db[collection]
         result = story_pages.find(query)
-        # print(f"Total number of storys fetched for indexing={count}")
         return result
     except Exception as e:
         print(e)
@@ -171,13 +170,7 @@ def parse_storys(result) -> list:
 
 if __name__ == "__main__":
     result = fetch_lightx_storys()
-    # if len(result) > 0:
-    #     print(f"Total number of storys fetched from mongodb={len(result)}!")
     solr_docs = parse_storys(result)
-
-    print(
-        f"{current_time()} - Total number of documents to be indexed={len(solr_docs)}"
-    )
     if len(solr_docs) > 0:
         print(
             f"{current_time()} - Total number of documents to be indexed={len(solr_docs)}"
