@@ -53,8 +53,8 @@ def fetch_lightx_storys():
             "language": "en",
         }
         collection = os.getenv("MONGODB_COLLECTION")
-        story_pages = db[collection]
-        # story_pages=db["storys"]
+        # story_pages = db[collection]
+        story_pages = db["storys"]
         result = story_pages.find(query)
         return result
     except Exception as e:
@@ -175,9 +175,13 @@ if __name__ == "__main__":
     print(
         f"{current_time()} - Total number of documents to be indexed={len(solr_docs)}"
     )
-    delete_documents()
-    print(f"{current_time()} - Deleted all indexed documents.")
-    index_documents(solr_docs)
-    print(
-        f"{current_time()} - Indexing completed! Total documents indexed={len(solr_docs)}"
-    )
+    if len(solr_docs) > 0:
+        print(
+            f"{current_time()} - Total number of documents to be indexed={len(solr_docs)}"
+        )
+        delete_documents()
+        print(f"{current_time()} - Deleted all indexed documents.")
+        index_documents(solr_docs)
+        print(
+            f"{current_time()} - Indexing completed! Total documents indexed={len(solr_docs)}"
+        )
