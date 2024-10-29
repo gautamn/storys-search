@@ -172,7 +172,10 @@ def parse_storys(result) -> list:
 
 if __name__ == "__main__":
     result = fetch_lightx_storys()
-    solr_docs = parse_storys(result)
+    if len(result) > 0:
+        print(f"Total number of storys fetched from mongodb={len(result)}!")
+        solr_docs = parse_storys(result)
+
     print(
         f"{current_time()} - Total number of documents to be indexed={len(solr_docs)}"
     )
