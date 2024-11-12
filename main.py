@@ -129,10 +129,10 @@ def parse_storys(result) -> list:
                         print(f"deeplink details found for {subType}, platform={platform}, version={version}")
                         if platform == "iphone":
                             solr_doc["iphone_deep_link_s"] = deeplink
-                            solr_doc["iphone_version_s"] = version
+                            solr_doc["iphone_version_i"] = int(version)
                         if platform == "android":
                             solr_doc["android_deep_link_s"] = deeplink
-                            solr_doc["android_version_s"] = version            
+                            solr_doc["android_version_i"] = int(version)            
         
         sections = doc["sections"]
         content = ""
