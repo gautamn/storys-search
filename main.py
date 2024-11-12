@@ -91,7 +91,7 @@ def parse_storys(result) -> list:
         solr_doc["pageType_s"] = doc["pageType"]
         solr_doc["subType_s"] = doc["subType"]
         solr_doc["customSubType_s"] = doc["subType"].replace("-", " ")
-
+        subType = solr_doc["subType_s"]
         tool_tag_assoc_ids = []
         if "toolTags" in doc:
             tool_tags = doc["toolTags"]
@@ -118,15 +118,23 @@ def parse_storys(result) -> list:
         if "metadata" in doc:
             meta_data = doc["metadata"]
             print(f"metadata={meta_data}")
-            if "iphoneDeeplink" in meta_data:
-                solr_doc["iphone_deep_link_s"] = meta_data["iphoneDeeplink"]
-            if "androidDeeplink" in meta_data:
-                solr_doc["android_deep_link_s"] = meta_data["androidDeeplink"]
-            if "iphoneVersion" in meta_data:
-                solr_doc["iphone_version_s"] = meta_data["iphoneVersion"]
-            if "androidVersion" in meta_data:
-                solr_doc["android_version_s"] = meta_data["androidVersion"]
+            
+            deep_link_arr = meta_data["deeplinkData"]
 
+            if len(deep_link_arr)>0:
+                for deep_link_info in deep_link_arr:
+                    platform = deep_link_info['platform']
+                    deeplink = deep_link_info['deeplink']
+                    version = deep_link_info['version']
+                    #operator = deep_link_info['operator']
+                    print(f"deeplink details found for {subType}, platform={platform}, version={version}")
+                    if platform == "iphone":
+                       solr_doc["iphone_deep_link_s"] = deeplink
+                       solr_doc["iphone_version_s"] = version
+                    if platform == "android":
+                       solr_doc["android_deep_link_s"] = deeplink
+                       solr_doc["android_version_s"] = version            
+        
         sections = doc["sections"]
         content = ""
         for section in sections:
