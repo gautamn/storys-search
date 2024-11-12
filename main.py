@@ -118,23 +118,21 @@ def parse_storys(result) -> list:
         if "metadata" in doc:
             meta_data = doc["metadata"]
             print(f"metadata={meta_data}")
-            if "deeplinkData" not in meta_data:
-                continue
-
-            deep_link_arr = meta_data["deeplinkData"]
-            if len(deep_link_arr)>0:
-                for deep_link_info in deep_link_arr:
-                    platform = deep_link_info['platform']
-                    deeplink = deep_link_info['deeplink']
-                    version = deep_link_info['version']
-                    #operator = deep_link_info['operator']
-                    print(f"deeplink details found for {subType}, platform={platform}, version={version}")
-                    if platform == "iphone":
-                       solr_doc["iphone_deep_link_s"] = deeplink
-                       solr_doc["iphone_version_s"] = version
-                    if platform == "android":
-                       solr_doc["android_deep_link_s"] = deeplink
-                       solr_doc["android_version_s"] = version            
+            if "deeplinkData" in meta_data:
+                deep_link_arr = meta_data["deeplinkData"]
+                if len(deep_link_arr)>0:
+                    for deep_link_info in deep_link_arr:
+                        platform = deep_link_info['platform']
+                        deeplink = deep_link_info['deeplink']
+                        version = deep_link_info['version']
+                        #operator = deep_link_info['operator']
+                        print(f"deeplink details found for {subType}, platform={platform}, version={version}")
+                        if platform == "iphone":
+                            solr_doc["iphone_deep_link_s"] = deeplink
+                            solr_doc["iphone_version_s"] = version
+                        if platform == "android":
+                            solr_doc["android_deep_link_s"] = deeplink
+                            solr_doc["android_version_s"] = version            
         
         sections = doc["sections"]
         content = ""
