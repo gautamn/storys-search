@@ -118,9 +118,10 @@ def parse_storys(result) -> list:
         if "metadata" in doc:
             meta_data = doc["metadata"]
             print(f"metadata={meta_data}")
-            
-            deep_link_arr = meta_data["deeplinkData"]
+            if "deeplinkData" not in meta_data:
+                continue
 
+            deep_link_arr = meta_data["deeplinkData"]
             if len(deep_link_arr)>0:
                 for deep_link_info in deep_link_arr:
                     platform = deep_link_info['platform']
